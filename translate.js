@@ -22,7 +22,18 @@ exports.translateText = async function (req, res) {
   // const filePath = path.join(__dirname, './', `.cache`, 'puppeteer', 'chrome', '115.0.5790.170-chrome-win64', 'chrome-win64', 'chrome.exe');
   // let launchOptions = { headless: true, args: ['--start-maximized'], executablePath: filePath };
   // for online, no need to specify the path
-  let launchOptions = { headless: true, args: ['--start-maximized'] };
+  let launchOptions = {
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
+  };
 
   const browser = await puppeteer.launch(launchOptions);
   const page = await browser.newPage();
