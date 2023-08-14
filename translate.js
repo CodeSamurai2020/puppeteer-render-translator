@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
+require("dotenv").config();
 
 async function waitFor(time) {
   return new Promise((resolve) => {
