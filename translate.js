@@ -42,14 +42,14 @@ exports.translateText = async function (req, res) {
   await page.setViewport({ width: 1366, height: 768 });
   await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36');
 
-  await page.goto(`https://translate.google.com/#view=home&op=translate&sl=${sourceLang}&tl=${targetLang}`);
+ await page.goto(`https://translate.google.com/?sl=${sourceLang}&tl=${targetLang}&text=${sourceString}&op=translate`);
 
   // detect the source textarea for input data (source string)
   await page.waitForSelector('.er8xn');
   await waitFor(1000);
 
   // type the source string on the textarea
-  await page.type('.er8xn', sourceString);
+  // await page.type('.er8xn', sourceString);
 
   // wait for the result container to be available
   await page.waitForSelector('.usGWQd');
